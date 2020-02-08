@@ -4,19 +4,27 @@
 echo "Welcome To Employee Wage Computation Program"
 
 #CONSTANT
-IS_EMPLOYEE_PRESENT=1;
+IS_WORKING_FULL_TIME=1;
+IS_WORKING_PARTTIME=2;
 EMPLOYEE_RATE_PER_HR=20;
 EMPLOYEE_HRS=8;
 
+#VARIABLES
+salary=0;
+employeeHrs=0;
 #GENERATING RANDOM VALUE 
-employeeCheck=$((RANDOM%2))
+employeeCheck=$((RANDOM%3))
 
-#CHECKING CONDITION
-if [ $IS_EMPLOYEE_PRESENT -eq $employeeCheck ]
+#CHECKING CONDITION AND CALCULATING DAILY WAGE
+if [ $IS_WORKING_FULL_TIME -eq $employeeCheck ]
 then
-	echo "EMPLOYEE IS PRESENT"
-	dailySalary=$(($EMPLOYEE_RATE_PER_HR * $EMPLOYEE_HRS))
-	echo "Daily Salary = $dailySalary"
+	employeeHrs=8;
+elif [ $IS_WORKING_PARTTIME -eq $employeeCheck ]
+then
+	employeeHrs=4;
 else
-	echo "EMPLOYEE IS ABSENT"
+	employeeHrs=0;
 fi
+
+salary=$(($EMPLOYEE_RATE_PER_HR * $employeeHrs))
+echo " Daily Salary Of Employee = $salary "
