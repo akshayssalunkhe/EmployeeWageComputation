@@ -13,11 +13,10 @@ WORKING_HRS_PER_MONTH=100;
 #VARIABLES
 salary=0;
 employeeHrs=0;
-salaryOfMonth=0;
-totalEmployeeHrs=0;
+
 
 #USING LOOP TO VERIFY CONDITION
-for (( totalWorkingDays=1;  totalWorkingDays<=20  &&  totalEmployeeHrs<=100 ; totalWorkingDays++ ))
+for (( totalWorkingDays=1,totalEmployeeHrs=0;  totalWorkingDays<=20  &&  totalEmployeeHrs<=100 ; totalWorkingDays++ ))
 do
   	employeeCheck=$((RANDOM%3))
 
