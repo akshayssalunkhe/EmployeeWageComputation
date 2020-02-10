@@ -3,6 +3,9 @@
 #DISPLAYING WELCOME MESSAGE
 echo "Welcome To Employee Wage Computation Program"
 
+#DECLARING DICTIONARY
+declare -A employeeDailyWage
+
 #CONSTANTS
 IS_WORKING_FULL_TIME=1;
 IS_WORKING_PART_TIME=2;
@@ -29,14 +32,14 @@ function getWorkingHours() {
                   	;;
    esac
 
-echo $employeeHrs
+echo "$employeeHrs"
 }
 
 #FUNCTION TO CALCULATE DAILY WAGE
 function calcDailyWage () {
 	local workHrs=$1
 	dailyWage=$(($employeeHrs*$EMPLOYEE_RATE_PER_HR))
-	echo $dailyWage
+	echo "$dailyWage"
 }
 
 #USING LOOP TO VERIFY CONDITION
@@ -44,10 +47,11 @@ for (( totalWorkingDays=1,totalEmployeeHrs=0;  totalWorkingDays<=20  &&  totalEm
 do
 	employeeHrs="$( getWorkingHours $((RANDOM%3)) )"
 	totalEmployeeHrs=$(($totalEmployeeHrs+$employeeHrs))
-	employeeDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
+	employeeDailyWage[$totalWorkingDays]=$( calcDailyWage $workHours )
 
-	totalSalary="$(( ${employeeDailyWage[$totalWorkingDays]}+$totalSalary ))"
+	totalSalary=$(( ${employeeDailyWage[$totalWorkingDays]}+$totalSalary ))
 done
 
 echo " Daily Wage " ${employeeDailyWage[@]}
+echo " Day Number " ${!employeeDailyWage[@]}
 echo " Total Monthly salary = $totalSalary "
