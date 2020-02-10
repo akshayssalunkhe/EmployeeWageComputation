@@ -11,12 +11,12 @@ WORKING_DAYS_PER_MONTH=20;
 WORKING_HRS_PER_MONTH=100;
 
 #VARIABLES
-totalSalary=0;
+salary=0;
 employeeHrs=0;
 totalEmployeeHrs=0;
 
-#FUNCTION TO  GET DAILY WORKING HOURS
-function getWorkingHours() {
+function getWorkingHours() 
+{
 	 case $1 in
          $IS_WORKING_FULL_TIME)
                   	employeeHrs=8
@@ -29,25 +29,30 @@ function getWorkingHours() {
                   	;;
    esac
 
-echo $employeeHrs
-}
-
-#FUNCTION TO CALCULATE DAILY WAGE
-function calcDailyWage () {
-	local workHrs=$1
-	dailyWage=$(($employeeHrs*$EMPLOYEE_RATE_PER_HR))
-	echo $dailyWage
 }
 
 #USING LOOP TO VERIFY CONDITION
 for (( totalWorkingDays=1,totalEmployeeHrs=0;  totalWorkingDays<=20  &&  totalEmployeeHrs<=100 ; totalWorkingDays++ ))
 do
-	employeeHrs="$( getWorkingHours $((RANDOM%3)) )"
-	totalEmployeeHrs=$(($totalEmployeeHrs+$employeeHrs))
-	employeeDailyWage[$totalWorkingDays]="$( calcDailyWage $workHours )"
+#  	employeeCheck=$((RANDOM%3))
 
-	totalSalary="$(( ${employeeDailyWage[$totalWorkingDays]}+$totalSalary ))"
+	#CHECKING CASE
+#	case $employeeCheck in
+#			$IS_WORKING_FULL_TIME)
+#						employeeHrs=8
+#						;;
+#			$IS_WORKING_PART_TIME)
+#						employeeHrs=4
+#						;;
+#			*)
+#						employeeHrs=0
+#						;;
+#	esac
+
+employeeHrs="$( getWorkingHours $((RANDOM%3)) )"
+totalEmployeeHrs=$(($totalEmployeeHrs + $employeeHrs))
+
+#CALCULATING DAILY SALARY AND ADDING IT TO GET MONTHLY SALARY
+salary=$(($EMPLOYEE_RATE_PER_HR * $employeeHrs))
+totalSalary=$(($totalSalary+$salary))
 done
-
-echo " Daily Wage " ${employeeDailyWage[@]}
-echo " Total Monthly salary = $totalSalary "
