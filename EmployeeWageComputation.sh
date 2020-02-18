@@ -20,19 +20,18 @@ totalEmployeeHrs=0;
 
 #FUNCTION TO  GET DAILY WORKING HOURS
 function getWorkingHours() {
-	 case $1 in
-         $IS_WORKING_FULL_TIME)
-                  	employeeHrs=8
-                  	;;
-         $IS_WORKING_PART_TIME)
-                  	employeeHrs=4
-                  	;;
-         *)
-                  	employeeHrs=0
-                  	;;
-   esac
-
-echo "$employeeHrs"
+	case $1 in
+		$IS_WORKING_FULL_TIME)
+				employeeHrs=8
+					;;
+		$IS_WORKING_PART_TIME)
+				employeeHrs=4
+					;;
+		*)
+				employeeHrs=0
+					;;
+	esac
+	echo "$employeeHrs"
 }
 
 #FUNCTION TO CALCULATE DAILY WAGE
@@ -48,7 +47,6 @@ do
 	employeeHrs="$( getWorkingHours $((RANDOM%3)) )"
 	totalEmployeeHrs=$(($totalEmployeeHrs+$employeeHrs))
 	employeeDailyWage[$totalWorkingDays]=$( calcDailyWage $workHours )
-
 	totalSalary=$(( ${employeeDailyWage[$totalWorkingDays]}+$totalSalary ))
 done
 
