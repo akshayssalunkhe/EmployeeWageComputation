@@ -36,7 +36,6 @@ function getWorkingHours() {
 
 #FUNCTION TO CALCULATE DAILY WAGE
 function calcDailyWage () {
-	local workHrs=$1
 	dailyWage=$(($employeeHrs*$EMPLOYEE_RATE_PER_HR))
 	echo "$dailyWage"
 }
@@ -46,7 +45,7 @@ for (( totalWorkingDays=1,totalEmployeeHrs=0;  totalWorkingDays<=20  &&  totalEm
 do
 	employeeHrs="$( getWorkingHours $((RANDOM%3)) )"
 	totalEmployeeHrs=$(($totalEmployeeHrs+$employeeHrs))
-	employeeDailyWage[$totalWorkingDays]=$( calcDailyWage $workHours )
+	employeeDailyWage[$totalWorkingDays]=$( calcDailyWage $employeeHrs )
 	totalSalary=$(( ${employeeDailyWage[$totalWorkingDays]}+$totalSalary ))
 done
 
